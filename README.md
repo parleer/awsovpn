@@ -1,4 +1,3 @@
-
 # awsovpn
 
 Manage an OpenVPN instance in your private EC2 cloud using this script. 
@@ -20,7 +19,6 @@ awsovpn down
 
 
 
-
 ## Installation
 
 Install via pip
@@ -35,7 +33,7 @@ pip install awsovpn
 
 If you have [awscli](https://aws.amazon.com/cli/) installed and configured, then awsovpn can utilize this same configuration. Just use `--profile PROFILE` to specify an AWS configuration profile. 
 
-```
+```bash
 awsovpn --profile myprofile up
 ``````
 
@@ -43,11 +41,11 @@ awsovpn --profile myprofile up
 
 Create a `.env` file or set the following environment variables: 
 
-```
+```text
 AWS_REGION=
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
-AWS_PROFILE
+AWS_PROFILE=
 ```
 
 ### Method 3: use arguments
@@ -56,7 +54,7 @@ You can also pass credential configuration as arguments:
 
 e.g.
 
-```
+```bash
 awsovpn --region REGION --access-key-id ACCESS_KEY_ID --secret-access-key SECRET_ACCESS_KEY
 ```
 
@@ -74,7 +72,16 @@ pip install -r requirements.txt
 
 Install the package in 'edit' mode. Now you can invoke the package using the name `word` as defined by `setup.py`.
 
-```
+```bash
 pip install -e .
 ```
 
+
+### Publish to PyPi
+
+```bash
+python3 -m pip install --upgrade setuptools wheel
+python3 setup.py sdist bdist_wheel
+python3 -m pip install --upgrade twine
+python3 -m twine upload dist/*
+```

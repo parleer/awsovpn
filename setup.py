@@ -7,8 +7,6 @@ setup(
     description="Aws OpenVPN Tool",
     packages=["awsovpn"],
     install_requires=[
-        # "click",
-        # "pytest",
         *open('requirements.txt').read().splitlines(),
     ],
     entry_points={
