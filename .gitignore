@@ -1,0 +1,5 @@
+.env
+venv
+*.pem
+*.bak
+*.egg-info
