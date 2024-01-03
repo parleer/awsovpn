@@ -5,10 +5,10 @@ Manage an OpenVPN instance in your private EC2 cloud using this script.
 
 ## Usage
 
-1. Create an OpenVPN EC2 instance and configure it for VPN access.
+1. Create and configure an OpenVPN EC2 instance in region **us-east-1** .
 
     ```bash
-    awsovpn up
+    awsovpn --region us-east-1 up
     ```
 
     Then following instructions to configure a Profile and install in your local OpenVPN client.
