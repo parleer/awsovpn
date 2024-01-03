@@ -90,6 +90,7 @@ def write_private_key(key_file_name, private_key_material):
 
 
 def ensure_key_pair(key_name):
+    """Ensure that AWS has a key by the given key_name.  Create a new one if necessary."""
     ensure_ec2()
     # Check if the key file exists.
     key_file_name = f"{key_name}.pem"
@@ -126,7 +127,7 @@ def ensure_stack(stack_name):
         # Check if stack already exists
         stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
         print(f"Stack {stack_name} already exists.")
-    except (KeyError, IndexError) as e:
+    except Exception as e:
         create_stack(stack_name)
 
         
@@ -199,6 +200,7 @@ def wait_for_ssh(hostname, port=22, username=None, password=None, key_filename=N
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     success = False
+    attempts = 0
 
     while True:
         try:
@@ -222,7 +224,11 @@ def wait_for_ssh(hostname, port=22, username=None, password=None, key_filename=N
                 break
         except Exception as e:
             print("An error occurred:", str(e))
-            break
+            attempts += 1
+            if attempts <= 2:
+                print("Retrying in 10 seconds...")
+            else:
+                break
 
         elapsed_time = time.time() - start_time
         if elapsed_time >= 60:
